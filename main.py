@@ -294,6 +294,6 @@ class Clicord(discord.Client):
 try: 
     clicord = Clicord(intents=intents)
     clicord.run(TOKEN)
-except:
+except Exception as e:
     print(e)
     print(colour.red("[error] Invalid token OR user quit OR ran into fatal error. See above."))
