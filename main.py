@@ -284,13 +284,15 @@ class Clicord(discord.Client):
             self.channel = rGC[1][1]
             
     async def on_message(self, message):
-        if message.channel.id == self.channel.id and self.ready:
-            print(colour.green("[message]"), "||",colour.cyan(f"[{message.guild}]"),"||",colour.blue(f"[#{message.channel}]"),"||", colour.yellow(f"[{str(message.author)}]"),">",message.content)
+        try:
+            if message.channel.id == self.channel.id and self.ready:
+                print(colour.green("[message]"), "||",colour.cyan(f"[{message.guild}]"),"||",colour.blue(f"[#{message.channel}]"),"||", colour.yellow(f"[{str(message.author)}]"),">",message.content)
             #print("--> ",end="")
             #await Util().cin(self.guild, self.channel)
-        else:
+            else:
+                pass
+        except:
             pass
- 
 try: 
     clicord = Clicord(intents=intents)
     clicord.run(TOKEN)
